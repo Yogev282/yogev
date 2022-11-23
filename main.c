@@ -51,7 +51,6 @@ void palindromeFinder(int start, int end){
         }
         i++;
     }
-    printf("\n");
 }
 
 // prints special numbers
