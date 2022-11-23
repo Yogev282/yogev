@@ -2,6 +2,7 @@
 #include "NumClass.h"
 #include <math.h>
 
+//returns if number is Palindrome
 int isPalindrome(int k){
 
     if(k < 0){ // negative number
@@ -17,7 +18,7 @@ int isPalindrome(int k){
     return (rev ==k);
 }
 
-
+// returns if number is Armstrong
 int isArmstrong(int k){
     
     int tmp = k;
@@ -32,7 +33,7 @@ int isArmstrong(int k){
 
     tmp = k;
     
-    while(tmp > 0){
+    while(tmp > 0){ // digit ^ number of digits
         sum += pow(tmp % 10  , counter);
         tmp /= 10;
     }

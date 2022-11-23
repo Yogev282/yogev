@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "NumClass.h"
 
+// returns if number is Prime
 int isPrime(int k){
     if(k==0){
         return 0;
@@ -17,6 +18,7 @@ int isPrime(int k){
     return 1;
 }
 
+// returns the factorial of a number
 int factorial(int k){
     if (k==0){
         return 1;
@@ -28,7 +30,7 @@ int factorial(int k){
     return sum;
 }
 
-
+// returns if number is Strong
 int isStrong(int k){
     if(k == 0){
         return 0;

@@ -16,10 +16,10 @@ libclassloops.so: advancedClassificationLoop.o basicClassification.o
 	$(CC) -shared -o libclassloops.so advancedClassificationLoop.o basicClassification.o
 
 advancedClassificationLoop.o:
-	$(CC) -c advancedClassificationLoop.c
+	$(CC) $(FLAGS) -fPIC -c advancedClassificationLoop.c
 
 basicClassification.o:
-	$(CC) -c basicClassification.c
+	$(CC) $(FLAGS) -fPIC -c basicClassification.c
 
 
 recursives: libclassrec.a
@@ -36,7 +36,7 @@ libclassrec.so: advancedClassificationRecursion.o basicClassification.o
 	$(CC) -shared -o libclassrec.so advancedClassificationRecursion.o basicClassification.o
 
 advancedClassificationRecursion.o:
-	$(CC) -c advancedClassificationRecursion.c
+	$(CC) $(FLAGS) -fPIC -c advancedClassificationRecursion.c
 
 mains: libclassrec.a
 	$(CC) $(FLAGS) main.c libclassrec.a -o mains -lm
