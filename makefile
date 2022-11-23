@@ -2,43 +2,41 @@ CC = gcc
 AR = ar
 FLAGS = -Wall -g
 
-all: loops loopd recursives recursived mains maindloop maindlrec
+all: loops loopd recursives recursived mains maindloop maindrec
 
 loops: libclassloops.a
 
 
-libclassloops.a: liblo
+libclassloops.a: advancedClassificationLoop.o basicClassification.o
 	$(AR) -rcs libclassloops.a advancedClassificationLoop.o basicClassification.o
-
 
 loopd: libclassloops.so
 
-
-libclassloops.so: liblo
+libclassloops.so: advancedClassificationLoop.o basicClassification.o
 	$(CC) -shared -o libclassloops.so advancedClassificationLoop.o basicClassification.o
 
+advancedClassificationLoop.o:
+	$(CC) -c advancedClassificationLoop.c
 
-liblo: 
-	$(CC) -c advancedClassificationLoop.c basicClassification.c
+basicClassification.o:
+	$(CC) -c basicClassification.c
 
 
 recursives: libclassrec.a
 
 
-libclassrec.a: librec
+libclassrec.a: advancedClassificationRecursion.o basicClassification.o
 	$(AR) -rcs libclassrec.a advancedClassificationRecursion.o basicClassification.o
 
 
 recursived: libclassrec.so
 
 
-libclassrec.so:librec
+libclassrec.so: advancedClassificationRecursion.o basicClassification.o
 	$(CC) -shared -o libclassrec.so advancedClassificationRecursion.o basicClassification.o
 
-
-librec:
-	$(CC) -c advancedClassificationRecursion.c basicClassification.c
-
+advancedClassificationRecursion.o:
+	$(CC) -c advancedClassificationRecursion.c
 
 mains: libclassrec.a
 	$(CC) $(FLAGS) main.c libclassrec.a -o mains -lm
@@ -48,7 +46,7 @@ maindloop: libclassloops.so
 	$(CC) $(FLAGS) main.c -o maindloop ./libclassloops.so -lm
 
 
-maindlrec: libclassrec.so
+maindrec: libclassrec.so
 	$(CC) $(FLAGS) main.c -o maindrec ./libclassrec.so -lm
 
 
