@@ -4,6 +4,9 @@
 
 //returns if number is Palindrome
 int isPalindrome(int k){
+    if(k==0){
+        return 1;
+    }
 
     if(k < 0){ // negative number
         k *= (-1) ;
@@ -20,6 +23,9 @@ int isPalindrome(int k){
 
 // returns if number is Armstrong
 int isArmstrong(int k){
+    if(k==0){
+        return 0;
+    }
     
     int tmp = k;
     int counter = 0;

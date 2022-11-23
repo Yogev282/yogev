@@ -40,6 +40,9 @@ int reversed(int k, int sum){
 }
 //returns if number is Palindrome
 int isPalindrome(int k){
+    if(k==0){
+        return 1;
+    }
     if(k < 0){
         k *= (-1);
     }
