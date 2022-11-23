@@ -11,8 +11,7 @@ void primeFinder(int start, int end){
             printf(" %d" , i);
         }
         i++;
-    }
-    printf("\n");   
+    }  
 }
 
 // prints armostrongs
@@ -25,7 +24,6 @@ void armstrongFinder(int start, int end){
         }
         i++;
     }
-    printf("\n");  
 }
 
 // prints strongs
@@ -50,15 +48,18 @@ void palindromeFinder(int start, int end){
         }
         i++;
     }
-    printf("\n");
 }
 
 // prints special numbers
 void Finder(int start, int end){
     armstrongFinder(start, end);
+    printf("\n");
     palindromeFinder(start, end);
+    printf("\n");
     primeFinder(start, end);
+    printf("\n");
     strongFinder(start, end);
+    printf("\n");
 }
 
 
