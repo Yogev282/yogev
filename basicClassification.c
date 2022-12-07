@@ -10,7 +10,7 @@ int isPrime(int k){
         return 1;
     }
     
-    for(int i = 2 ; i < k ; i++){
+    for(int i = 2 ; i*i < k ; i++){
        if(k%i == 0){
         return 0;
        }
