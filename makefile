@@ -2,53 +2,52 @@ CC = gcc
 AR = ar
 FLAGS = -Wall -g
 
-all: loops loopd recursives recursived mains maindloop maindrec
+all: mains loops maindloop maindrec
 
 loops: libclassloops.a
 
-
 libclassloops.a: advancedClassificationLoop.o basicClassification.o
-	$(AR) -rcs libclassloops.a advancedClassificationLoop.o basicClassification.o
-
-loopd: libclassloops.so
-
-libclassloops.so: advancedClassificationLoop.o basicClassification.o
-	$(CC) -shared -o libclassloops.so advancedClassificationLoop.o basicClassification.o
-
-advancedClassificationLoop.o:
-	$(CC) $(FLAGS) -fPIC -c advancedClassificationLoop.c
-
-basicClassification.o:
-	$(CC) $(FLAGS) -fPIC -c basicClassification.c
-
+	ar -rcs libclassloops.a advancedClassificationLoop.o basicClassification.o
 
 recursives: libclassrec.a
 
-
 libclassrec.a: advancedClassificationRecursion.o basicClassification.o
-	$(AR) -rcs libclassrec.a advancedClassificationRecursion.o basicClassification.o
+	ar -rcs libclassrec.a advancedClassificationRecursion.o basicClassification.o
 
+mains: main.o libclassrec.a
+	gcc -Wall -o mains main.o libclassrec.a -lm
+
+
+loopd: libclassloops.so 
+
+libclassloops.so: advancedClassificationLoop.o basicClassification.o
+	gcc -shared -fPIC -o libclassloops.so advancedClassificationLoop.o basicClassification.o -lm
 
 recursived: libclassrec.so
 
-
 libclassrec.so: advancedClassificationRecursion.o basicClassification.o
-	$(CC) -shared -o libclassrec.so advancedClassificationRecursion.o basicClassification.o
-
-advancedClassificationRecursion.o:
-	$(CC) $(FLAGS) -fPIC -c advancedClassificationRecursion.c
-
-mains: libclassrec.a
-	$(CC) $(FLAGS) main.c libclassrec.a -o mains -lm
+	gcc -shared -fPIC -o libclassrec.so advancedClassificationRecursion.o basicClassification.o -lm
 
 
-maindloop: libclassloops.so
-	$(CC) $(FLAGS) main.c -o maindloop ./libclassloops.so -lm
+maindloop: main.o libclassloops.so
+	gcc -Wall -o maindloop main.o ./libclassloops.so
 
-
-maindrec: libclassrec.so
-	$(CC) $(FLAGS) main.c -o maindrec ./libclassrec.so -lm
-
+maindrec: main.o libclassrec.so
+	gcc -Wall -o maindrec main.o ./libclassrec.so
 
 clean:
-	rm -f *.o *.a *.so mains maindloop maindrec
+	rm -f maindloop maindrec mains libclassrec.* libclassloops.* *.o
+
+.PHONY : clean loopd loops recursived recursives
+
+basicClassification.o: basicClassification.c NumClass.h
+	gcc -Wall -c basicClassification.c
+
+advancedClassificationLoop.o: advancedClassificationLoop.c NumClass.h
+	gcc -Wall -c advancedClassificationLoop.c
+
+advancedClassificationRecursion.o: advancedClassificationRecursion.c NumClass.h
+	gcc -Wall -c advancedClassificationRecursion.c
+
+main.o: main.c NumClass.h
+	gcc -Wall -c main.c
